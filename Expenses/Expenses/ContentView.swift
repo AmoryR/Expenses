@@ -9,7 +9,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selection = 2
+    @State private var selection = 0
+    var profileHandler = ProfileHandler()
  
     var body: some View {
         TabView(selection: $selection){
@@ -22,6 +23,7 @@ struct ContentView: View {
                 }
                 .tag(0)
             SavingsView()
+                .environmentObject(profileHandler)
                 .tabItem {
                     VStack {
                         Image(systemName: "chart.pie.fill")
@@ -30,6 +32,7 @@ struct ContentView: View {
                 }
                 .tag(1)
             ProfileView()
+                .environmentObject(profileHandler)
                 .tabItem {
                     VStack {
                         Image(systemName: "person.circle.fill")
@@ -47,7 +50,7 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-
+/*
 // MARK: Expenses
 enum TypeExpense {
     case fixed
@@ -61,154 +64,6 @@ struct Expense {
     var category: String
 }
 
-struct ExpensesView: View {
-    var body: some View {
-        HStack {
-            
-            ExpensesList()
-        }
-    }
-}
-struct ExpensesList: View {
-    
-    var selection = ["Expenses", "Statistics"]
-    @State private var selected = 0
-    @State private var showAddExpense = false
-    
-    var body: some View {
-        NavigationView {
-            
-            List {
-                //ExpensesPicker()
-                Picker(selection: $selected, label: Text("ExpensesPicker")) {
-                   ForEach(0 ..< selection.count) {
-                      Text(self.selection[$0])
-                   }
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                
-                if (selected == 0) {
-                    ForEach(0 ..< 5) {_ in
-                        ExpensesRow()
-                    }
-                } else {
-                    
-                }
-            }
-        .navigationBarTitle(Text("Expenses"))
-        .navigationBarItems(trailing:
-            Button(action: {
-                // Action
-                self.showAddExpense = true
-            }) {
-                // Design
-                Image(systemName: "plus")
-            }.sheet(isPresented: self.$showAddExpense) { AddExpenseModalView() }
-        )
-        }
-    }
-}
-
-/*struct ExpensesPicker: View {
-    
-    @State private var selected = 0
-    
-    var body: some View {
-        Picker(selection: $selected, label: Text("ExpensesPicker")) {
-           Text("Expenses")
-           Text("Statistics")
-        }
-        .pickerStyle(SegmentedPickerStyle())
-    }
-}*/
-
-struct ExpensesRow: View {
-    var body: some View {
-        HStack {
-            Text("Netflix")
-            
-            Spacer()
-            
-            Text("$0")
-        }
-    }
-}
-
-struct AddExpenseModalView: View {
-    @Environment(\.presentationMode) var presentationMode
-    
-    var selection = ["Expenses", "Statistics"]
-    @State private var selected = 0
-    
-    @State var expense: String = ""
-    @State var amount: String = ""
-    
-    var categorySelection = [
-        "Cable TV",
-        "Internet",
-        "Mobile phone",
-        "Subscription",
-        "Electricity",
-        "Gas",
-        "Insurance",
-        "Rent",
-        "Water",
-        "Taxes",
-    ]
-    @State private var categorySelected = 0
-    
-    var body: some View {
-        NavigationView() {
-            //Text("Hello")
-                
-            VStack {
-                //ExpensesPicker()
-                Picker(selection: $selected, label: Text("ExpensesPicker")) {
-                   ForEach(0 ..< selection.count) {
-                      Text(self.selection[$0])
-                   }
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                
-                TextField("Expense", text: $expense)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                TextField("Amount", text: $amount)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                
-                Picker(selection: $categorySelected, label: Text("CategoryPicker")) {
-                   ForEach(0 ..< categorySelection.count) {
-                      Text(self.categorySelection[$0])
-                   }
-                    }.labelsHidden()
-                
-                Spacer()
-                }.padding(8)
-                
-                // Navigation bar
-                .navigationBarTitle(Text("Add expense"), displayMode: .inline)
-                .navigationBarItems(leading:
-                    Button(action: {
-                        // Action
-                        self.presentationMode.wrappedValue.dismiss()
-                    }) {
-                        // Design
-                        Text("Cancel")
-                    }
-                                    ,trailing:
-                    Button(action: {
-                        // Action
-                        // Have to save expense before dismiss view
-                        self.presentationMode.wrappedValue.dismiss()
-                    }) {
-                        // Design
-                        Text("Save")
-                        .bold()
-                    }
-                )
-                
-        }
-    }
-}
 
 // MARK: Savings
 struct SavingsView: View {
@@ -233,7 +88,7 @@ struct ProfileView: View {
                 
                 Text("Amory Rouault")
                     .bold()
-                
+                    
                 List {
                     ProfileRow()
                     ProfileRow()
@@ -302,4 +157,4 @@ struct EditProfileModalView: View {
         }
     }
 }
-}
+}*/
