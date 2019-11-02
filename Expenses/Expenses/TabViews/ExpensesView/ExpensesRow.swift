@@ -13,10 +13,16 @@ struct ExpensesRow: View {
     
     var body: some View {
         HStack {
-            // Image
             
-            // Title
-            Text(expense.title)
+            VStack(alignment: .leading) {
+                // Title
+                Text(expense.title)
+                
+                // Category
+                Text(expense.category)
+                    .font(.subheadline)
+                    .foregroundColor(Color.gray)
+            }
             
             // Spacer
             Spacer()
@@ -28,9 +34,9 @@ struct ExpensesRow: View {
     }
 }
 
-/*struct ExpensesRow_Previews: PreviewProvider {
+struct ExpensesRow_Previews: PreviewProvider {
     static var previews: some View {
-        ExpensesRow(expense: expensesTestData[0])
+        ExpensesRow(expense: Expense(title: "Netflix", amount: 15, type: "Fixed", category: "Subscription"))
             .previewLayout(.fixed(width: 350, height: 70))
     }
-}*/
+}

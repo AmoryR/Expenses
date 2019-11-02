@@ -11,7 +11,8 @@ import SwiftUI
 struct NewExpenseView: View {
     @Environment(\.presentationMode) var presentationMode
     
-    @Binding var expensesHandler: ExpensesHandler
+    @EnvironmentObject var expensesHandler: ExpensesHandler
+    //@Binding var expensesHandler: ExpensesHandler
     
     @State private var title: String = ""
     @State private var amount: String = ""

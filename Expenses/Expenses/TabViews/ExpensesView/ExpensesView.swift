@@ -10,11 +10,13 @@ import SwiftUI
 
 struct ExpensesView: View {
     
-    @State var expensesHandler: ExpensesHandler = ExpensesHandler()
+    @EnvironmentObject var expensesHandler: ExpensesHandler
+    
+    //@State var expensesHandler: ExpensesHandler = ExpensesHandler()
     @State private var showAddExpense = false
     @State private var expensesSelected = 0
     
-    var expensesSelection = ["Expenses", "Statistics"]
+    var expensesSelection = ["Fixed", "Variable"]
     
     var body: some View {
         NavigationView {
@@ -52,7 +54,7 @@ struct ExpensesView: View {
                 }) {
                     // Design
                     Image(systemName: "plus")
-                }.sheet(isPresented: self.$showAddExpense) { NewExpenseView(expensesHandler: self.$expensesHandler) }
+                }.sheet(isPresented: self.$showAddExpense) { NewExpenseView().environmentObject(self.expensesHandler) }
             )
         }
     }

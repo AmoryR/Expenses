@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SavingsView: View {
     
+    @EnvironmentObject var expensesHandler: ExpensesHandler
     @EnvironmentObject var profileHandler: ProfileHandler
     
     var body: some View {

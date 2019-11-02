@@ -10,11 +10,13 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var selection = 0
+    var expensesHandler = ExpensesHandler()
     var profileHandler = ProfileHandler()
  
     var body: some View {
         TabView(selection: $selection){
             ExpensesView()
+                .environmentObject(expensesHandler)
                 .tabItem {
                     VStack {
                         Image(systemName: "dollarsign.circle.fill")
@@ -23,6 +25,7 @@ struct ContentView: View {
                 }
                 .tag(0)
             SavingsView()
+                .environmentObject(expensesHandler)
                 .environmentObject(profileHandler)
                 .tabItem {
                     VStack {
