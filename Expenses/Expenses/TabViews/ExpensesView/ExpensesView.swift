@@ -8,6 +8,20 @@
 
 import SwiftUI
 
+// TEST FOR DEBUG
+struct Weather: Identifiable {
+    var id = UUID()
+    var image: String
+    var temp: Int
+    var city: String
+}
+
+let modelData: [Weather] = [
+Weather(image: "cloud.rain", temp: 21, city: "Amsterdam"),
+Weather(image: "cloud.sun.rain", temp: 18, city: "London"),
+Weather(image: "sun.max", temp: 25, city: "Paris"),
+Weather(image: "cloud.sun", temp: 23, city: "Tokyo")]
+
 struct ExpensesView: View {
     
     @EnvironmentObject var expensesHandler: ExpensesHandler
@@ -31,17 +45,8 @@ struct ExpensesView: View {
                 .pickerStyle(SegmentedPickerStyle())
                 
                 // List
-                //TODO: Filter expense {fixed, variable}
-                ForEach(self.expensesHandler.expenses) { expense in
-                    NavigationLink(destination: ExpensesDetail(expense: expense)) {
-                        ExpensesRow(expense: expense)
-                    }
-                    
-                    /*if self.expensesSelected == 0 {
-                        ExpensesRow(expense: expense)
-                    } else if self.expensesSelected == 1 {
-                        //ExpensesRow(expense: expense)
-                    }*/
+                ForEach(expensesHandler.expenses.filter { $0.type == self.expensesSelection[self.expensesSelected] }) { expense in
+                    ExpensesRow(expense: expense)
                 }
                 .onDelete(perform: deleteExpense)
                 

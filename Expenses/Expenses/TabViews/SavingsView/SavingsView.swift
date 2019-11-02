@@ -23,9 +23,9 @@ struct SavingsView: View {
                 VStack {
                     Group {
 
-                        Text("TOTAL EXPENSES: $0")
+                        Text("TOTAL EXPENSES: $\(self.expensesHandler.totalExpenses())")
                             .bold()
-                        Text("REVENUE: $" + String(profileHandler.profile.revenue))
+                        Text("REVENUE: $\(profileHandler.profile.revenue)")
                         
                     }
                 }
@@ -33,15 +33,20 @@ struct SavingsView: View {
                 .background(Color.white)
                 .cornerRadius(8)
                 .clipped()
-                .shadow(color: .gray, radius: 5, x: 0, y: 2)
+                .shadow(color: .gray, radius: 2, x: 0, y: 1)
                 
                 Spacer()
                 
-                Text("SAVINGS: $0")
+                Text("SAVINGS: $\(self.computeSavings())")
                     .bold()
             }
+            .padding(12)
             .navigationBarTitle(Text("Savings"))
         }
+    }
+    
+    private func computeSavings() -> Int {
+        return Int(self.profileHandler.profile.revenue)! - self.expensesHandler.totalExpenses()
     }
 }
 

@@ -40,7 +40,7 @@ struct Expense : Identifiable, Codable {
 }
 
 class ExpensesHandler : ObservableObject {
-    @Published var expenses = [Expense]() {
+    @Published var expenses: [Expense] = [Expense]() {
         didSet {
             let encoder = JSONEncoder()
             
@@ -61,6 +61,16 @@ class ExpensesHandler : ObservableObject {
         }
         
         self.expenses = []
+    }
+    
+    func totalExpenses() -> Int {
+        var sum: Int = 0
+        
+        for expense in self.expenses {
+            sum += expense.amount
+        }
+        
+        return sum
     }
 }
 

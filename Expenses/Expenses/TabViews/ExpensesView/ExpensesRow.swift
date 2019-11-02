@@ -12,24 +12,26 @@ struct ExpensesRow: View {
     var expense: Expense
     
     var body: some View {
-        HStack {
-            
-            VStack(alignment: .leading) {
-                // Title
-                Text(expense.title)
+        NavigationLink(destination: ExpensesDetail(expense: self.expense)) {
+            HStack {
                 
-                // Category
-                Text(expense.category)
-                    .font(.subheadline)
-                    .foregroundColor(Color.gray)
+                VStack(alignment: .leading) {
+                    // Title
+                    Text(expense.title)
+                    
+                    // Category
+                    Text(expense.category)
+                        .font(.subheadline)
+                        .foregroundColor(Color.gray)
+                }
+                
+                // Spacer
+                Spacer()
+                
+                // Amount
+                Text("$\(expense.amount)")
+                    .foregroundColor(.gray)
             }
-            
-            // Spacer
-            Spacer()
-            
-            // Amount
-            Text("$\(expense.amount)")
-                .foregroundColor(.gray)
         }
     }
 }
