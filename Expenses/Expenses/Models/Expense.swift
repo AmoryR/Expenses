@@ -18,17 +18,17 @@ let ExpenseType = [
 ]
 // Should be ENUM
 let ExpenseCategory = [
-    "No category",
+    "Bank",
     "Cable TV",
-    "Internet",
-    "Mobile phone",
-    "Subscription",
     "Electricity",
+    "Entertainment",
+    "Food",
     "Gas",
     "Insurance",
+    "Internet",
     "Rent",
-    "Water",
-    "Taxes"
+    "Subscription",
+    "Water"
 ]
 
 struct Expense : Identifiable, Codable {
@@ -71,6 +71,42 @@ class ExpensesHandler : ObservableObject {
         }
         
         return sum
+    }
+    
+    func getCategories() -> [Category] {
+        
+        var categories : [Category] = [Category]()
+        
+        /*for expense in self.expenses {
+            
+            // If expense.category is not in categories
+            //      add it
+            
+            // Add expense.amount to the correct categories
+            
+        }*/
+        
+        // Create expenses
+        for expense in self.expenses {
+            let categoriesContainsThisExpense = categories.contains { category in
+                if category.title == expense.category {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            
+            if !categoriesContainsThisExpense {
+                categories.append(Category(title: expense.category, amount: 0))
+            }
+        }
+        
+        // Compute expenses amount
+        for expense in self.expenses {
+            categories.first(where: { $0.title == expense.category })?.amount += expense.amount
+        }
+        
+        return categories
     }
 }
 

@@ -15,6 +15,11 @@ struct ExpensesRow: View {
         NavigationLink(destination: ExpensesDetail(expense: self.expense)) {
             HStack {
                 
+                Image(expense.category.lowercased())
+                    .resizable()
+                    .frame(width: 38, height: 38)
+                    .cornerRadius(8)
+                
                 VStack(alignment: .leading) {
                     // Title
                     Text(expense.title)
@@ -30,7 +35,7 @@ struct ExpensesRow: View {
                 
                 // Amount
                 Text("$\(expense.amount)")
-                    .foregroundColor(.gray)
+                    .foregroundColor(.green)
             }
         }
     }

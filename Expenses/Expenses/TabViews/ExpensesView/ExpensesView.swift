@@ -8,44 +8,18 @@
 
 import SwiftUI
 
-// TEST FOR DEBUG
-struct Weather: Identifiable {
-    var id = UUID()
-    var image: String
-    var temp: Int
-    var city: String
-}
-
-let modelData: [Weather] = [
-Weather(image: "cloud.rain", temp: 21, city: "Amsterdam"),
-Weather(image: "cloud.sun.rain", temp: 18, city: "London"),
-Weather(image: "sun.max", temp: 25, city: "Paris"),
-Weather(image: "cloud.sun", temp: 23, city: "Tokyo")]
-
 struct ExpensesView: View {
     
     @EnvironmentObject var expensesHandler: ExpensesHandler
     
-    //@State var expensesHandler: ExpensesHandler = ExpensesHandler()
     @State private var showAddExpense = false
-    @State private var expensesSelected = 0
-    
-    var expensesSelection = ["Fixed", "Variable"]
     
     var body: some View {
         NavigationView {
             List {
                 
-                // Picker
-                Picker(selection: $expensesSelected, label: Text("ExpensesPicker")) {
-                   ForEach(0 ..< expensesSelection.count) {
-                      Text(self.expensesSelection[$0])
-                   }
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                
                 // List
-                ForEach(expensesHandler.expenses.filter { $0.type == self.expensesSelection[self.expensesSelected] }) { expense in
+                ForEach(expensesHandler.expenses) { expense in
                     ExpensesRow(expense: expense)
                 }
                 .onDelete(perform: deleteExpense)
@@ -66,7 +40,6 @@ struct ExpensesView: View {
     
     func deleteExpense(at offsets: IndexSet) {
         expensesHandler.expenses.remove(atOffsets: offsets)
-        //TODO: View do not refresh
     }
 }
 

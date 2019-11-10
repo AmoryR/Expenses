@@ -12,11 +12,9 @@ struct NewExpenseView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @EnvironmentObject var expensesHandler: ExpensesHandler
-    //@Binding var expensesHandler: ExpensesHandler
     
     @State private var title: String = ""
     @State private var amount: String = ""
-    @State private var typeSelected = 0
     @State private var categorySelected = 0
     
     var body: some View {
@@ -25,23 +23,29 @@ struct NewExpenseView: View {
             
             Form {
                 
-                Section {
+                Section(header: Text("INFORMATIONS")) {
                     // Expense title
-                    TextField("Title", text: $title)
-                    
-                    // Expense amount
-                    TextField("Amount", text: $amount)
-                        .keyboardType(.numberPad)
-                }
-                
-                Section {
-                    // Type
-                    Picker(selection: $typeSelected, label: Text("Type")) {
-                       ForEach(0 ..< ExpenseType.count) {
-                          Text(ExpenseType[$0])
-                       }
+                    HStack {
+                        Text("Title")
+                            .foregroundColor(.blue)
+                            .frame(width: 70)
+                            
+                        TextField("Title", text: $title)
                     }
                     
+                    // Expense amount
+                    HStack {
+                        Text("Amount")
+                            .foregroundColor(.blue)
+                            .frame(width: 70)
+                        
+                        TextField("Amount", text: $amount)
+                            .keyboardType(.numberPad)
+                    }
+                    
+                }
+                
+                Section(header: Text("CATEGORY")) {
                     // Category
                     Picker(selection: $categorySelected, label: Text("Category")) {
                         ForEach(0 ..< ExpenseCategory.count) {
@@ -65,7 +69,7 @@ struct NewExpenseView: View {
                     // Action
                     let newExpense = Expense(title: self.title,
                                              amount: Int(self.amount)!,
-                                             type: ExpenseType[self.typeSelected],
+                                             type: "Fixed",
                                              category: ExpenseCategory[self.categorySelected])
                     self.expensesHandler.expenses.append(newExpense)
                     

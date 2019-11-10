@@ -14,11 +14,33 @@ struct ExpensesDetail: View {
     
     var body: some View {
         
-        List {
-            ExpensesDetailRow(title: "Amount", detail: "$" + String(self.expense.amount))
-            ExpensesDetailRow(title: "Type", detail: self.expense.type)
-            ExpensesDetailRow(title: "Category", detail: self.expense.category)
-        }.navigationBarTitle(Text(self.expense.title))
+        ZStack {
+            Image("expense-detail")
+                .resizable()
+                .frame(width: UIScreen.main.bounds.width,
+                       height: UIScreen.main.bounds.height)
+            
+            HStack {
+                
+                VStack(alignment: .leading) {
+                    Image(expense.category.lowercased())
+                        .resizable()
+                        .frame(width: 94, height: 94)
+                        .cornerRadius(8)
+                    
+                    Text(expense.title)
+                        .font(.title)
+                    Text(expense.category)
+                        .font(.subheadline)
+                        .foregroundColor(Color.gray)
+                    Text("$\(expense.amount)")
+                        .font(.body)
+                        .foregroundColor(Color.green)
+                }
+                Spacer()
+                
+            }.padding(16)
+        }
     
     }
 }

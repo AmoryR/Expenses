@@ -19,33 +19,49 @@ struct SavingsView: View {
         
             VStack {
                 
-                // Main card
-                VStack {
-                    Group {
-
-                        Text("TOTAL EXPENSES: $\(self.expensesHandler.totalExpenses())")
-                            .bold()
-                        Text("REVENUE: $\(profileHandler.profile.revenue)")
+                // Resume
+                HStack {
+                    Text("Resume")
+                        .bold()
+                    Spacer()
+                }.padding(.leading, 8)
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 24) {
+                        ResumeView(title: "Savings",
+                                   amount: "$\(self.computeSavings())")
+                        ResumeView(title: "Revenue",
+                                   amount: "$\(self.profileHandler.profile.revenue)")
+                        ResumeView(title: "Expenses",
+                                   amount: "$\(self.expensesHandler.totalExpenses())")
+                    }
+                    .padding(8)
+                }
+                
+                Divider()
+                
+                // Categories
+                HStack {
+                    Text("Categories")
+                        .bold()
+                    Spacer()
+                }.padding(.leading, 8)
+                
+                List {
+                    ForEach(self.expensesHandler.getCategories()) { category in
+                        CategoryRow(category: category)
                         
                     }
                 }
-                .frame(width: 250, height: 75, alignment: .center)
-                .background(Color.white)
-                .cornerRadius(8)
-                .clipped()
-                .shadow(color: .gray, radius: 2, x: 0, y: 1)
                 
-                Spacer()
-                
-                Text("SAVINGS: $\(self.computeSavings())")
-                    .bold()
-            }
-            .padding(12)
-            .navigationBarTitle(Text("Savings"))
+            }.navigationBarTitle(Text("Savings"))
         }
     }
     
     private func computeSavings() -> Int {
+        if self.profileHandler.profile.revenue.isEmpty {
+            return 0
+        }
         return Int(self.profileHandler.profile.revenue)! - self.expensesHandler.totalExpenses()
     }
 }
