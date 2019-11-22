@@ -67,9 +67,11 @@ struct NewExpenseView: View {
                                 ,trailing:
                 Button(action: {
                     // Action
-                    let newExpense = Expense(title: self.title,
+                    
+                    let titleTrim = self.title.trimmingCharacters(in: .whitespaces)
+                    
+                    let newExpense = Expense(title: titleTrim,
                                              amount: Int(self.amount)!,
-                                             type: "Fixed",
                                              category: ExpenseCategory[self.categorySelected])
                     self.expensesHandler.expenses.append(newExpense)
                     
@@ -77,7 +79,7 @@ struct NewExpenseView: View {
                 }) {
                     // Design
                     Text("Add")
-                    .bold()
+                        .bold()
                 }.disabled(!formIsValid())
             )
         }

@@ -31,12 +31,24 @@ let ExpenseCategory = [
     "Water"
 ]
 
-struct Expense : Identifiable, Codable {
+//struct Expense : Identifiable, Codable {
+//    var id = UUID()
+//    var title: String
+//    var amount: Int
+//    var category: String
+//}
+
+class Expense : Identifiable, Codable {
     var id = UUID()
     var title: String
     var amount: Int
-    var type: String
     var category: String
+    
+    init(title: String, amount: Int, category: String) {
+        self.title = title
+        self.amount = amount
+        self.category = category
+    }
 }
 
 class ExpensesHandler : ObservableObject {
@@ -73,40 +85,40 @@ class ExpensesHandler : ObservableObject {
         return sum
     }
     
-    func getCategories() -> [Category] {
-        
-        var categories : [Category] = [Category]()
-        
-        /*for expense in self.expenses {
-            
-            // If expense.category is not in categories
-            //      add it
-            
-            // Add expense.amount to the correct categories
-            
-        }*/
-        
-        // Create expenses
-        for expense in self.expenses {
-            let categoriesContainsThisExpense = categories.contains { category in
-                if category.title == expense.category {
-                    return true
-                } else {
-                    return false
-                }
-            }
-            
-            if !categoriesContainsThisExpense {
-                categories.append(Category(title: expense.category, amount: 0))
-            }
-        }
-        
-        // Compute expenses amount
-        for expense in self.expenses {
-            categories.first(where: { $0.title == expense.category })?.amount += expense.amount
-        }
-        
-        return categories
-    }
+//    func getCategories() -> [Category] {
+//        
+//        var categories : [Category] = [Category]()
+//        
+//        /*for expense in self.expenses {
+//            
+//            // If expense.category is not in categories
+//            //      add it
+//            
+//            // Add expense.amount to the correct categories
+//            
+//        }*/
+//        
+//        // Create expenses
+//        for expense in self.expenses {
+//            let categoriesContainsThisExpense = categories.contains { category in
+//                if category.title == expense.category {
+//                    return true
+//                } else {
+//                    return false
+//                }
+//            }
+//            
+//            if !categoriesContainsThisExpense {
+//                categories.append(Category(title: expense.category, amount: 0))
+//            }
+//        }
+//        
+//        // Compute expenses amount
+//        for expense in self.expenses {
+//            categories.first(where: { $0.title == expense.category })?.amount += expense.amount
+//        }
+//        
+//        return categories
+//    }
 }
 

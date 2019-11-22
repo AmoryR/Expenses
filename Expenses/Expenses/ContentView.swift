@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selection = 1
+    @State private var selection = 0
     var expensesHandler = ExpensesHandler()
     var profileHandler = ProfileHandler()
  

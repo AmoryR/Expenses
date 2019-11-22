@@ -19,6 +19,49 @@ struct ProfileView: View {
         NavigationView {
             
             VStack {
+                Image("img-profile-default")
+                    .resizable()
+                    .frame(width: 120, height: 120, alignment: .center)
+                    .clipShape(Circle())
+                
+                Rectangle()
+                    .frame(height: 175, alignment: .center)
+                    .foregroundColor(Color.init("Header Detail"))
+                    .offset(y: -60)
+                    .zIndex(-1)
+                
+//                Text(self.profileHandler.profile.name)
+//                    .bold()
+                Text("Amory Rouault")
+                    .bold()
+                
+                VStack {
+                    ProfileRow(title: "A", value: "B")
+                    
+                    Divider()
+                    
+                    ProfileRow(title: "A", value: "B")
+                    
+                    Divider()
+                    
+                    ProfileRow(title: "A", value: "B")
+                }
+                .frame(width: 343)
+                .background(Color.white)
+                .cornerRadius(8)
+                .shadow(radius: 6)
+                
+                Spacer()
+                
+                
+            }
+            .navigationBarTitle(Text("Profile"))
+            
+        }
+        
+        /*NavigationView {
+            
+            VStack {
                 
                 VStack {
                     // Profile picture
@@ -56,14 +99,14 @@ struct ProfileView: View {
                     .environmentObject(self.profileHandler)
                 }
             )
-        }
+        }*/
         
     }
 }
 
-/*
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(profile: profileExample)
+        ProfileView()
+            .environmentObject(ProfileHandler())
     }
-}*/
+}

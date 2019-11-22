@@ -50,6 +50,3 @@ class ProfileHandler: ObservableObject {
     }
 }
 
-#if DEBUG
-var profileExample = Profile(profileImageUrl: "A", name: "B", age: "0", work: "C", revenue: "0")
-#endif

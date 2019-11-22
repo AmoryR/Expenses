@@ -11,27 +11,19 @@ import SwiftUI
 struct ExpensesView: View {
     
     @EnvironmentObject var expensesHandler: ExpensesHandler
-    
     @State private var showAddExpense = false
     
     var body: some View {
         NavigationView {
             List {
-                
-                // List
                 ForEach(expensesHandler.expenses) { expense in
                     ExpensesRow(expense: expense)
                 }
                 .onDelete(perform: deleteExpense)
-                
             }
             .navigationBarTitle(Text("Expenses"))
             .navigationBarItems(trailing:
-                Button(action: {
-                    // Action
-                    self.showAddExpense = true
-                }) {
-                    // Design
+                Button(action: { self.showAddExpense = true }) {
                     Image(systemName: "plus")
                 }.sheet(isPresented: self.$showAddExpense) { NewExpenseView().environmentObject(self.expensesHandler) }
             )
@@ -43,8 +35,12 @@ struct ExpensesView: View {
     }
 }
 
+#if DEBUG
 struct ExpensesView_Previews: PreviewProvider {
     static var previews: some View {
-        ExpensesView()
+        NavigationView {
+            ExpensesView()
+        }
     }
 }
+#endif

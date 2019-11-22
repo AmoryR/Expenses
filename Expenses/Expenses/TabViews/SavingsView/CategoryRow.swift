@@ -13,7 +13,7 @@ struct CategoryRow: View {
     var category: Category
     
     var body: some View {
-        NavigationLink(destination: Text("Category detail")) {
+        NavigationLink(destination: CategoryDetail(category: category)) {
             
             HStack {
                 
@@ -24,7 +24,6 @@ struct CategoryRow: View {
                 
                 VStack(alignment: .leading) {
                     Text(category.title)
-                        .foregroundColor(Color.black)
                     Text("$\(category.amount)")
                         .foregroundColor(Color.green)
                 }
@@ -39,6 +38,6 @@ struct CategoryRow: View {
 
 struct CategoryRow_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryRow(category: Category(title: "Bank", amount: 0))
+        CategoryRow(category: Category(expenses: []))
     }
 }

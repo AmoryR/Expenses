@@ -13,37 +13,37 @@ struct ExpensesRow: View {
     
     var body: some View {
         NavigationLink(destination: ExpensesDetail(expense: self.expense)) {
+            
             HStack {
-                
+                // Main image
                 Image(expense.category.lowercased())
                     .resizable()
                     .frame(width: 38, height: 38)
                     .cornerRadius(8)
                 
+                // Main informations
                 VStack(alignment: .leading) {
-                    // Title
                     Text(expense.title)
-                    
-                    // Category
                     Text(expense.category)
                         .font(.subheadline)
                         .foregroundColor(Color.gray)
                 }
                 
-                // Spacer
                 Spacer()
                 
                 // Amount
                 Text("$\(expense.amount)")
                     .foregroundColor(.green)
-            }
+                
+            }.padding(5)
+            
         }
     }
 }
 
 struct ExpensesRow_Previews: PreviewProvider {
     static var previews: some View {
-        ExpensesRow(expense: Expense(title: "Netflix", amount: 15, type: "Fixed", category: "Subscription"))
+        ExpensesRow(expense: Expense(title: "Netflix", amount: 15, category: "Subscription"))
             .previewLayout(.fixed(width: 350, height: 70))
     }
 }
