@@ -23,6 +23,7 @@ struct ProfileRow: View {
         HStack {
             // Title
             Text(title)
+                .bold()
             
             // Spacer
             Spacer()

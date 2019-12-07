@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9622DBDF239BF392007F5597 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622DBDE239BF392007F5597 /* ImagePickerView.swift */; };
 		9659FD59236B7D2E00ED640E /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9659FD58236B7D2E00ED640E /* Profile.swift */; };
 		966494F92361F67000094D43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966494F82361F67000094D43 /* AppDelegate.swift */; };
 		966494FB2361F67000094D43 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966494FA2361F67000094D43 /* SceneDelegate.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9622DBDE239BF392007F5597 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		9659FD58236B7D2E00ED640E /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		966494F52361F67000094D43 /* Expenses.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Expenses.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		966494F82361F67000094D43 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				96AFEBBF2365D8A300E14035 /* ProfileView.swift */,
 				96AFEBCC2365E0EB00E14035 /* ProfileRow.swift */,
 				96E89FA9236C403200C0246F /* EditProfileView.swift */,
+				9622DBDE239BF392007F5597 /* ImagePickerView.swift */,
 			);
 			path = ProfileView;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				96AFEBC92365DC2600E14035 /* Expense.swift in Sources */,
 				96AFEBC02365D8A300E14035 /* ProfileView.swift in Sources */,
 				96AFEBC42365D8C100E14035 /* ExpensesView.swift in Sources */,
+				9622DBDF239BF392007F5597 /* ImagePickerView.swift in Sources */,
 				96AFEBC22365D8B100E14035 /* SavingsView.swift in Sources */,
 				96AFEBC62365DAC000E14035 /* ExpensesRow.swift in Sources */,
 				96E89FAA236C403200C0246F /* EditProfileView.swift in Sources */,

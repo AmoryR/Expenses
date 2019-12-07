@@ -13,8 +13,65 @@ struct CategoryDetail: View {
     var category: Category
     
     var body: some View {
+            
+        ZStack {
+            
+            // Background
+            Rectangle()
+                .frame(height: 160, alignment: .center)
+                .foregroundColor(Color.init("Header Detail"))
+                .offset(y: -170)
+            
+            VStack {
+                
+                // Category image
+                Image(category.title.lowercased())
+                    .resizable()
+                    .frame(width: 82, height: 82)
+                    .cornerRadius(8)
+                    .shadow(radius: 6)
+                
+                // Category informations
+                Text(category.title)
+                    .font(.title)
+                    .bold()
+                    .foregroundColor(.white)
+                Text("$\(category.amount)")
+                    .foregroundColor(.white)
+                    .padding(.bottom)
+                
+                // Expenses list
+                VStack {
+                    
+                    HStack {
+                        
+                        Text("Expenses")
+                            .bold()
+                        
+                        Spacer()
+                        
+                    }
+                    .padding(.top)
+                    .padding(.leading)
+                    
+                    List {
+                        
+                        ForEach(category.expenses) { expense in
+                            ExpensesRow(expense: expense)
+                        }
+                    }
+                    
+                }
+                .frame(width: 343)
+                .background(Color.white)
+                .cornerRadius(8)
+                .shadow(radius: 6)
+            }
+            .padding(.bottom)
+            
+        }
         
-        VStack {
+        /*VStack {
             
             Rectangle()
                 .frame(height: 255, alignment: .center)
@@ -38,7 +95,11 @@ struct CategoryDetail: View {
                     
                 }.padding(.leading)
                 
-            }.offset(x: -60, y: -155) // Problem with x : -60
+                Spacer()
+                
+            }
+            .padding(.leading)
+            .offset(y: -155)
             
             VStack {
                 
@@ -60,7 +121,8 @@ struct CategoryDetail: View {
             .shadow(radius: 6)
             .offset(y: -135)
             
-        }.edgesIgnoringSafeArea(.all)
+        }
+        .edgesIgnoringSafeArea(.all)*/
         
     }
 }

@@ -26,18 +26,30 @@ struct NewExpenseView: View {
                 Section(header: Text("INFORMATIONS")) {
                     // Expense title
                     HStack {
-                        Text("Title")
-                            .foregroundColor(.blue)
-                            .frame(width: 70)
+                        
+                        HStack {
+                            
+                            Spacer()
+                            
+                            Text("Title")
+                                .foregroundColor(.blue)
+                            
+                        }.frame(width: 70)
                             
                         TextField("Title", text: $title)
                     }
                     
                     // Expense amount
                     HStack {
-                        Text("Amount")
-                            .foregroundColor(.blue)
-                            .frame(width: 70)
+                        
+                        HStack {
+                            
+                            Spacer()
+                            
+                            Text("Amount")
+                                .foregroundColor(.blue)
+                            
+                        }.frame(width: 70)
                         
                         TextField("Amount", text: $amount)
                             .keyboardType(.numberPad)
@@ -68,14 +80,19 @@ struct NewExpenseView: View {
                 Button(action: {
                     // Action
                     
-                    let titleTrim = self.title.trimmingCharacters(in: .whitespaces)
+                    if self.expensesHandler.expenses.count < 100 {
+                        let titleTrim = self.title.trimmingCharacters(in: .whitespaces)
+                        
+                        let newExpense = Expense(title: titleTrim,
+                                                 amount: Int(self.amount)!,
+                                                 category: ExpenseCategory[self.categorySelected])
+                        self.expensesHandler.expenses.append(newExpense)
+                        
+                        self.presentationMode.wrappedValue.dismiss()
+                    } else {
+                        print("Give a feedback")
+                    }
                     
-                    let newExpense = Expense(title: titleTrim,
-                                             amount: Int(self.amount)!,
-                                             category: ExpenseCategory[self.categorySelected])
-                    self.expensesHandler.expenses.append(newExpense)
-                    
-                    self.presentationMode.wrappedValue.dismiss()
                 }) {
                     // Design
                     Text("Add")

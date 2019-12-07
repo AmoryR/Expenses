@@ -15,14 +15,21 @@ struct ResumeView: View {
     
     var body: some View {
         
-        VStack {
+        HStack {
             
-            //MARK: Find a way to achieve the result wanted
-            Text(self.title)
-                .foregroundColor(.gray)
-            Text(self.amount)
+            VStack(alignment: .leading) {
+                Spacer()
+                
+                Text(self.title)
+                    .foregroundColor(.gray)
+                Text(self.amount)
+            }
+            
+            
+            Spacer()
             
         }
+        .padding(15)
         .frame(width: 148, height: 68)
         .background(Color.white)
         .cornerRadius(8)

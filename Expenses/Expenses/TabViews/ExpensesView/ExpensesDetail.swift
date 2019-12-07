@@ -15,42 +15,46 @@ struct ExpensesDetail: View {
         
         VStack {
             
-            Rectangle()
-                .frame(height: 255, alignment: .center)
-                .foregroundColor(Color.init("Header Detail"))
-            
-            HStack(alignment: .bottom) {
+            ZStack {
                 
-                Image(expense.category.lowercased())
-                    .resizable()
-                    .frame(width: 82, height: 82)
-                    .cornerRadius(8)
-                    .shadow(radius: 6)
+                // Background
+                Rectangle()
+                    .frame(height: 160, alignment: .center)
+                    .foregroundColor(Color.init("Header Detail"))
                 
-                VStack(alignment: .leading) {
+                VStack {
                     
+                    // Expense image
+                    Image(expense.category.lowercased())
+                        .resizable()
+                        .frame(width: 82, height: 82)
+                        .cornerRadius(8)
+                        .shadow(radius: 6)
+                    
+                    // Expense informations
                     Text(expense.title)
                         .font(.title)
+                        .bold()
                         .foregroundColor(.white)
                     Text("$\(expense.amount)")
                         .foregroundColor(.white)
+                        .padding(.bottom)
                     
-                }.padding(.leading)
+                    // Expense category
+                    HStack {
+                        Text("Category")
+                            .bold()
+                        Spacer()
+                        Text(expense.category)
+                    }
+                    .padding()
+                    .frame(width: 343, height: 65, alignment: .center)
+                    .background(Color.white)
+                    .cornerRadius(8)
+                    .shadow(radius: 6)
+                }
                 
-            }.offset(x: -60, y: -155) // Problem with x : -60
-            
-            HStack {
-                Text("Category")
-                    .bold()
-                Spacer()
-                Text(expense.category)
             }
-            .padding()
-            .frame(width: 343, height: 65, alignment: .center)
-            .background(Color.white)
-            .cornerRadius(8)
-            .shadow(radius: 6)
-            .offset(y: -135)
             
             Spacer()
             
@@ -62,7 +66,7 @@ struct ExpensesDetail: View {
                     .cornerRadius(8)
             }.padding()
             
-        }.edgesIgnoringSafeArea(.all)
+        }
         
     }
 }
@@ -70,9 +74,7 @@ struct ExpensesDetail: View {
 #if DEBUG
 struct ExpensesDetail_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            ExpensesDetail(expense: Expense(title: "Cinema", amount: 20, category: "Entertainment"))
-        }
+        ExpensesDetail(expense: Expense(title: "Cinema", amount: 20, category: "Entertainment"))
     }
 }
 #endif

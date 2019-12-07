@@ -19,72 +19,47 @@ struct ProfileView: View {
         NavigationView {
             
             VStack {
-                Image("img-profile-default")
-                    .resizable()
-                    .frame(width: 120, height: 120, alignment: .center)
-                    .clipShape(Circle())
                 
-                Rectangle()
-                    .frame(height: 175, alignment: .center)
-                    .foregroundColor(Color.init("Header Detail"))
-                    .offset(y: -60)
-                    .zIndex(-1)
-                
-//                Text(self.profileHandler.profile.name)
-//                    .bold()
-                Text("Amory Rouault")
-                    .bold()
-                
-                VStack {
-                    ProfileRow(title: "A", value: "B")
+                ZStack {
                     
-                    Divider()
+                    // Background
+                    Rectangle()
+                        .frame(height: 160, alignment: .center)
+                        .foregroundColor(Color.init("Header Detail"))
                     
-                    ProfileRow(title: "A", value: "B")
+                    VStack {
+                        
+                        // Profile image
+                        Image("img-profile-default")
+                            .resizable()
+                            .frame(width: 120, height: 120, alignment: .center)
+                            .clipShape(Circle())
+                        
+                        // Profile name
+                        Text(self.profileHandler.profile.name)
+                            .font(.title)
+                            .bold()
+                            .foregroundColor(.white)
+                            .padding(.bottom)
+                        
+                        // Expense category
+                        VStack {
+                            ProfileRow(title: "Age", value: String(self.profileHandler.profile.age))
+                            Divider()
+                            ProfileRow(title: "Work", value: self.profileHandler.profile.work)
+                            Divider()
+                            ProfileRow(title: "Revenue", value: "$\(String(self.profileHandler.profile.revenue))")
+                        }
+                        .padding()
+                        .frame(width: 343, alignment: .center)
+                        .background(Color.white)
+                        .cornerRadius(8)
+                        .shadow(radius: 6)
+                    }
                     
-                    Divider()
-                    
-                    ProfileRow(title: "A", value: "B")
                 }
-                .frame(width: 343)
-                .background(Color.white)
-                .cornerRadius(8)
-                .shadow(radius: 6)
                 
                 Spacer()
-                
-                
-            }
-            .navigationBarTitle(Text("Profile"))
-            
-        }
-        
-        /*NavigationView {
-            
-            VStack {
-                
-                VStack {
-                    // Profile picture
-                    Image("img-profile-default")
-                        .resizable()
-                        .frame(width: 120, height: 120, alignment: .center)
-                        .clipShape(Circle())
-                    
-                    // Name
-                    Text(self.profileHandler.profile.name)
-                        .bold()
-                }
-                
-                Form {
-                    // Age
-                    ProfileRow(title: "Age", value: String(self.profileHandler.profile.age))
-                    
-                    // Work
-                    ProfileRow(title: "Work", value: self.profileHandler.profile.work)
-                    
-                    // Revenue
-                    ProfileRow(title: "Revenue", value: "$" + String(self.profileHandler.profile.revenue))
-                }
                 
             }
             .navigationBarTitle(Text("Profile"))
@@ -99,7 +74,8 @@ struct ProfileView: View {
                     .environmentObject(self.profileHandler)
                 }
             )
-        }*/
+            
+        }
         
     }
 }

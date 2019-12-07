@@ -29,24 +29,40 @@ struct SavingsView: View {
                 
                 VStack {
                     
-                    Text("Resume")
-                        .foregroundColor(.white)
-                        .bold()
-                        .padding(.top)
+                    HStack {
+                        
+                        Text("Resume")
+                            .foregroundColor(.white)
+                            .bold()
+                            .padding(.top)
+                        
+                        Spacer()
+                        
+                    }.padding(.leading)
                     
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ResumeView(title: "Savings", amount: "$")
-                            ResumeView(title: "Expenses", amount: "$")
-                            ResumeView(title: "Revenue", amount: "$")
-                        }.padding(.leading)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        
+                        HStack(spacing: 15) {
+                            ResumeView(title: "Savings", amount: "$\(self.computeSavings())")
+                            ResumeView(title: "Expenses", amount: "$\(self.expensesHandler.totalExpenses())")
+                            ResumeView(title: "Revenue", amount: "$\(self.profileHandler.profile.revenue)")
+                        }
+                        .padding(.leading)
+                        .padding(.trailing)
+                        
                     }.padding(.bottom)
                     
                     VStack {
                         
-                        Text("Categories")
-                            .bold()
-                            .padding(.top)
+                        HStack {
+                            
+                            Text("Categories")
+                                .bold()
+                                .padding(.top)
+                            
+                            Spacer()
+                            
+                        }.padding(.leading)
                         
                         List {
                             
@@ -64,7 +80,7 @@ struct SavingsView: View {
                     
                     Spacer()
                     
-                }
+                }.padding(.bottom)
                 
             }
             .navigationBarTitle(Text("Savings"))

@@ -17,16 +17,20 @@ struct ExpensesView: View {
         NavigationView {
             List {
                 ForEach(expensesHandler.expenses) { expense in
-                    ExpensesRow(expense: expense)
+                    NavigationLink(destination: ExpensesDetail(expense: expense)) {
+                        ExpensesRow(expense: expense)
+                    }
                 }
                 .onDelete(perform: deleteExpense)
             }
             .navigationBarTitle(Text("Expenses"))
+            .accentColor(.green)
             .navigationBarItems(trailing:
                 Button(action: { self.showAddExpense = true }) {
                     Image(systemName: "plus")
                 }.sheet(isPresented: self.$showAddExpense) { NewExpenseView().environmentObject(self.expensesHandler) }
             )
+            
         }
     }
     

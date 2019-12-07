@@ -31,6 +31,20 @@ let ExpenseCategory = [
     "Water"
 ]
 
+// Should be ENUM
+// Maybe let the user write his job ?
+let WorkList = [
+    "Architect",
+    "Doctor",
+    "Engineer",
+    "Lawyer",
+    "Programmer",
+    "Student",
+    "Teacher",
+    "Unemployed",
+    "Writer"
+]
+
 //struct Expense : Identifiable, Codable {
 //    var id = UUID()
 //    var title: String

@@ -30,7 +30,7 @@ struct CategoryRow: View {
                 
                 Spacer()
                 
-            }
+            }.padding(3)
             
         }
     }

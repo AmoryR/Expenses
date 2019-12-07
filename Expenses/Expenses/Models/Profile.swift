@@ -9,16 +9,8 @@
 import Combine
 import SwiftUI
 
-/*class Profile: ObservableObject {
-    @Published var profileImageURL: String = ""
-    @Published var name: String = ""
-    @Published var age: String = "0" // Should be Int but problem with environment
-    @Published var work: String = ""
-    @Published var revenue: String = "0" // Should be Int but problem with environment
-}*/
-
 struct Profile: Codable {
-    var profileImageUrl: String
+    var profileImageUrl: String // Should be an UIImage so that picker can give an image
     var name: String
     var age: String // Should be Int but problem with text field
     var work: String
