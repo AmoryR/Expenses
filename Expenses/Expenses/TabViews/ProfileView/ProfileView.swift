@@ -30,10 +30,12 @@ struct ProfileView: View {
                     VStack {
                         
                         // Profile image
-                        Image("img-profile-default")
-                            .resizable()
-                            .frame(width: 120, height: 120, alignment: .center)
-                            .clipShape(Circle())
+                        Image(uiImage: profileHandler.profileImage!)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 120, height: 120, alignment: .center)
+                                .clipShape(Circle())
+                                .shadow(radius: 3)
                         
                         // Profile name
                         Text(self.profileHandler.profile.name)
@@ -52,9 +54,9 @@ struct ProfileView: View {
                         }
                         .padding()
                         .frame(width: 343, alignment: .center)
-                        .background(Color.white)
+                        .background(Color.init("Appearance"))
                         .cornerRadius(8)
-                        .shadow(radius: 6)
+                        .shadow(/*color: Color.init("Shadow"),*/ radius: 6)
                     }
                     
                 }

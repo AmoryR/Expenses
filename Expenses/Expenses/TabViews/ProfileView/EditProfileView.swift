@@ -12,7 +12,6 @@ struct EditProfileView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @State var isShowingImagePicker: Bool = false
-    @State var profileImage = UIImage()
     
     @EnvironmentObject var profileHandler: ProfileHandler
     
@@ -22,45 +21,53 @@ struct EditProfileView: View {
             
             Form {
                 
-                // ==== MAKE IT CLEAN === //
-                // Image here
-                Image(uiImage: profileImage)
-                    .resizable()
-                    .frame(width: 200, height: 200)
-                    .border(Color.black, width: 1)
-                    .clipped()
+                Section(header: Text("PROFILE IMAGE")) {
+                    
+                    // Image here
+                    Image(uiImage: profileHandler.profileImage!)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 90, height: 90)
+                        .clipped()
+                        .clipShape(Circle())
+                        .shadow(radius: 3)
+                    
+                    
+                    Button(action: {
+                        self.isShowingImagePicker.toggle()
+                    }, label: {
+                        Text("Edit profile image")
+                    })
+                    .sheet(isPresented: $isShowingImagePicker, content: {
+                        ImagePickerView(isPresented: self.$isShowingImagePicker)
+                            .environmentObject(self.profileHandler)
+                    })
+                }
                 
-                Button(action: {
-                    self.isShowingImagePicker.toggle()
-                }, label: {
-                    Text("Edit profile picture")
-                })
-                .sheet(isPresented: $isShowingImagePicker, content: {
-                    ImagePickerView(isPresented: self.$isShowingImagePicker, selectedImage: self.$profileImage)
-                })
-                // ==== MAKE IT CLEAN === //
+                Section(header: Text("INFORMATIONS")) {
+                    // Name
+                    EditProfileTextFieldView(title: "Name",
+                                             placeholder: "name",
+                                             textFieldValue: self.$profileHandler.profile.name)
+                    
+                    // Age
+                    EditProfileTextFieldView(title: "Age",
+                                             placeholder: "0",
+                                             keyboardType: .numberPad,
+                                             textFieldValue: self.$profileHandler.profile.age)
+                    
+                    // Work
+                    EditProfileTextFieldView(title: "Work",
+                                             placeholder: "work",
+                                             textFieldValue: self.$profileHandler.profile.work)
+                    
+                    // Revenue
+                    EditProfileTextFieldView(title: "Revenue",
+                                             placeholder: "0",
+                                             keyboardType: .numberPad,
+                                             textFieldValue: self.$profileHandler.profile.revenue)
+                }
                 
-                // Name
-                EditProfileTextFieldView(title: "Name",
-                                         placeholder: "name",
-                                         textFieldValue: self.$profileHandler.profile.name)
-                
-                // Age
-                EditProfileTextFieldView(title: "Age",
-                                         placeholder: "0",
-                                         keyboardType: .numberPad,
-                                         textFieldValue: self.$profileHandler.profile.age)
-                
-                // Work
-                EditProfileTextFieldView(title: "Work",
-                                         placeholder: "work",
-                                         textFieldValue: self.$profileHandler.profile.work)
-                
-                // Revenue
-                EditProfileTextFieldView(title: "Revenue",
-                                         placeholder: "0",
-                                         keyboardType: .numberPad,
-                                         textFieldValue: self.$profileHandler.profile.revenue)
             }
             .navigationBarTitle(Text("Edit profile"), displayMode: .inline)
             .navigationBarItems(leading:
@@ -103,14 +110,17 @@ struct EditProfileTextFieldView: View {
     }
 }
 
+// Should be in another file but it doesn't work
 struct ImagePickerView: UIViewControllerRepresentable {
     
+    @EnvironmentObject var profileHandler: ProfileHandler
+    
     @Binding var isPresented: Bool
-    @Binding var selectedImage: UIImage
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePickerView>) -> UIViewController {
         let controller = UIImagePickerController()
         controller.delegate = context.coordinator
+        controller.allowsEditing = true
         return controller
     }
     
@@ -127,8 +137,8 @@ struct ImagePickerView: UIViewControllerRepresentable {
         }
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let selectedImage = info[.originalImage] as? UIImage {
-                self.parent.selectedImage = selectedImage
+            if let selectedImage = info[.editedImage] as? UIImage {
+                self.parent.profileHandler.profileImage = selectedImage
             }
             
             self.parent.isPresented = false

@@ -12,6 +12,7 @@ struct ExpensesView: View {
     
     @EnvironmentObject var expensesHandler: ExpensesHandler
     @State private var showAddExpense = false
+    @State private var showAlertExpense = false
     
     var body: some View {
         NavigationView {
@@ -26,9 +27,24 @@ struct ExpensesView: View {
             .navigationBarTitle(Text("Expenses"))
             .accentColor(.green)
             .navigationBarItems(trailing:
-                Button(action: { self.showAddExpense = true }) {
+                Button(action: {
+                    
+                    if self.expensesHandler.expenses.count < 100 {
+                        self.showAddExpense = true
+                    } else {
+                        self.showAlertExpense = true
+                    }
+                    
+                }) {
                     Image(systemName: "plus")
-                }.sheet(isPresented: self.$showAddExpense) { NewExpenseView().environmentObject(self.expensesHandler) }
+                }
+                .alert(isPresented: self.$showAlertExpense) {
+                    Alert(title: Text("Expenses capacity reached"),
+                          message: Text("You cannot add more than 100 expenses"),
+                          dismissButton: .default(Text("Dismiss")))
+                }
+                .sheet(isPresented: self.$showAddExpense) {
+                    NewExpenseView(mode: .new).environmentObject(self.expensesHandler) }
             )
             
         }

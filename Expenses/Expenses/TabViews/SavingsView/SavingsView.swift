@@ -74,9 +74,9 @@ struct SavingsView: View {
                         
                     }
                     .frame(width: 343)
-                    .background(Color.white)
+                    .background(Color.init("Appearance"))
                     .cornerRadius(8)
-                    .shadow(radius: 6)
+                    .shadow(/*color: Color.init("Shadow"),*/ radius: 6)
                     
                     Spacer()
                     
@@ -86,70 +86,7 @@ struct SavingsView: View {
             .navigationBarTitle(Text("Savings"))
             
         }
-        
-        /*NavigationView {
-        
-            VStack {
-                
-                // Resume
-                VStack(alignment: .leading) {
-                    Text("Resume")
-                        .font(.headline)
-                        .padding(.leading, 15)
-                        .padding(.top, 5)
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(alignment: .top, spacing: 0) {
-                            VStack(alignment: .leading) {
-                                Text("Savings")
-                                    .foregroundColor(.primary)
-                                    .font(.caption)
-                                Text("Amount")
-                                    .foregroundColor(.primary)
-                                    .font(.caption)
-                            }
-                            .padding(.leading, 15)
-                        }
-                    }
-                }
-                
-                // Resume
-                HStack {
-                    Text("Resume")
-                        .bold()
-                    Spacer()
-                }.padding(.leading, 12)
-                
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 12) {
-                        ResumeView(title: "Savings",
-                                   amount: "$\(self.computeSavings())")
-                        ResumeView(title: "Revenue",
-                                   amount: "$\(self.profileHandler.profile.revenue)")
-                        ResumeView(title: "Expenses",
-                                   amount: "$\(self.expensesHandler.totalExpenses())")
-                    }
-                    .padding(12)
-                }
-                
-                Divider()
-                
-                // Categories
-                HStack {
-                    Text("Categories")
-                        .bold()
-                    Spacer()
-                }.padding(.leading, 12)
-                
-                List {
-                    ForEach(self.expensesHandler.getCategories()) { category in
-                        CategoryRow(category: category)
-                        
-                    }
-                }
-                
-            }.navigationBarTitle(Text("Savings"))
-        }*/
+         
     }
     
     private func computeSavings() -> Int {

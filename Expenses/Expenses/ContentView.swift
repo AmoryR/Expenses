@@ -8,6 +8,14 @@
 
 import SwiftUI
 
+class ContentViewController: UIViewController {
+    
+    override func viewDidLoad() {
+        overrideUserInterfaceStyle = .light
+    }
+    
+}
+
 struct ContentView: View {
     @State private var selection = 0
     var expensesHandler = ExpensesHandler()
@@ -44,6 +52,7 @@ struct ContentView: View {
                 }
                 .tag(2)
         }
+        .accentColor(Color.init("Header Detail"))
     }
 }
 

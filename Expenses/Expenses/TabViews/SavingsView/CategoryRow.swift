@@ -33,6 +33,7 @@ struct CategoryRow: View {
             }.padding(3)
             
         }
+    
     }
 }
 

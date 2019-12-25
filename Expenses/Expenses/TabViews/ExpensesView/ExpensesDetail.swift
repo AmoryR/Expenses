@@ -11,6 +11,8 @@ import SwiftUI
 struct ExpensesDetail: View {
     var expense: Expense
     
+    @State private var showEditExpense = false
+    
     var body: some View {
         
         VStack {
@@ -49,22 +51,27 @@ struct ExpensesDetail: View {
                     }
                     .padding()
                     .frame(width: 343, height: 65, alignment: .center)
-                    .background(Color.white)
+                    .background(Color.init("Appearance"))
                     .cornerRadius(8)
-                    .shadow(radius: 6)
+                    .shadow(/*color: Color.init("Shadow"),*/ radius: 6)
                 }
                 
             }
             
             Spacer()
             
-            Button(action: {}) {
+            Button(action: {
+                self.showEditExpense = true
+            }) {
                 Text("Edit")
                     .foregroundColor(.white)
                     .frame(width: 78, height: 35, alignment: .center)
                     .background(Color.init("Header Detail"))
                     .cornerRadius(8)
-            }.padding()
+            }
+            .padding()
+            .sheet(isPresented: self.$showEditExpense) {
+                NewExpenseView(mode: .edit) }
             
         }
         

@@ -31,7 +31,7 @@ struct ResumeView: View {
         }
         .padding(15)
         .frame(width: 148, height: 68)
-        .background(Color.white)
+        .background(Color.init("Appearance"))
         .cornerRadius(8)
             
         .clipped()

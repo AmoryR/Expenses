@@ -10,7 +10,6 @@ import Combine
 import SwiftUI
 
 struct Profile: Codable {
-    var profileImageUrl: String // Should be an UIImage so that picker can give an image
     var name: String
     var age: String // Should be Int but problem with text field
     var work: String
@@ -18,7 +17,17 @@ struct Profile: Codable {
 }
 
 class ProfileHandler: ObservableObject {
-    @Published var profile = Profile(profileImageUrl: "", name: "", age: "", work: "", revenue: "") {
+    @Published var profileImage = UIImage(named: "img-profile-default") {
+        didSet {
+            
+            if let pngData = profileImage?.pngData() {
+                UserDefaults.standard.set(pngData, forKey: "ProfilePicture")
+            }
+            
+        }
+    }
+    
+    @Published var profile = Profile(name: "None", age: "0", work: "None", revenue: "0") {
         didSet {
             let encoder = JSONEncoder()
             
@@ -34,11 +43,13 @@ class ProfileHandler: ObservableObject {
             
             if let decoded = try? decoder.decode(Profile.self, from: profile) {
                 self.profile = decoded
-                return
+//                return
             }
         }
         
-        self.profile = Profile(profileImageUrl: "", name: "", age: "", work: "", revenue: "")
+        if let imageData = UserDefaults.standard.object(forKey: "ProfilePicture") as? Data {
+            self.profileImage = UIImage(data: imageData)
+        }
     }
 }
 

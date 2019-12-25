@@ -8,6 +8,11 @@
 
 import SwiftUI
 
+enum Mode {
+    case new
+    case edit
+}
+
 struct NewExpenseView: View {
     @Environment(\.presentationMode) var presentationMode
     
@@ -16,6 +21,8 @@ struct NewExpenseView: View {
     @State private var title: String = ""
     @State private var amount: String = ""
     @State private var categorySelected = 0
+    
+    var mode: Mode
     
     var body: some View {
         
@@ -80,7 +87,7 @@ struct NewExpenseView: View {
                 Button(action: {
                     // Action
                     
-                    if self.expensesHandler.expenses.count < 100 {
+                    if self.expensesHandler.expenses.count < 100 && self.mode == .new {
                         let titleTrim = self.title.trimmingCharacters(in: .whitespaces)
                         
                         let newExpense = Expense(title: titleTrim,
@@ -89,8 +96,9 @@ struct NewExpenseView: View {
                         self.expensesHandler.expenses.append(newExpense)
                         
                         self.presentationMode.wrappedValue.dismiss()
-                    } else {
-                        print("Give a feedback")
+                        
+                    } else if self.mode == .edit {
+                        print("edit mode")
                     }
                     
                 }) {
