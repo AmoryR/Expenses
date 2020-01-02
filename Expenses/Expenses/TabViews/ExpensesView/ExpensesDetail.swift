@@ -9,9 +9,12 @@
 import SwiftUI
 
 struct ExpensesDetail: View {
-    var expense: Expense
+    
+    @EnvironmentObject var expensesHandler: ExpensesHandler
     
     @State private var showEditExpense = false
+    
+    var expense: Expense
     
     var body: some View {
         
@@ -61,7 +64,7 @@ struct ExpensesDetail: View {
             Spacer()
             
             Button(action: {
-                self.showEditExpense = true
+                self.showEditExpense.toggle()
             }) {
                 Text("Edit")
                     .foregroundColor(.white)
@@ -71,7 +74,9 @@ struct ExpensesDetail: View {
             }
             .padding()
             .sheet(isPresented: self.$showEditExpense) {
-                NewExpenseView(mode: .edit) }
+                NewExpenseView(isEditMode: true, expenseId: self.expense.id).environmentObject(self.expensesHandler) }
+            
+            
             
         }
         
@@ -79,9 +84,9 @@ struct ExpensesDetail: View {
 }
 
 #if DEBUG
-struct ExpensesDetail_Previews: PreviewProvider {
-    static var previews: some View {
-        ExpensesDetail(expense: Expense(title: "Cinema", amount: 20, category: "Entertainment"))
-    }
-}
+//struct ExpensesDetail_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ExpensesDetail(expense: Expense(title: "Cinema", amount: 20, category: "Entertainment"))
+//    }
+//}
 #endif

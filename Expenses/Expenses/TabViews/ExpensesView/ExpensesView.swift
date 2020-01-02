@@ -18,7 +18,8 @@ struct ExpensesView: View {
         NavigationView {
             List {
                 ForEach(expensesHandler.expenses) { expense in
-                    NavigationLink(destination: ExpensesDetail(expense: expense)) {
+                    NavigationLink(destination:
+                    ExpensesDetail(expense: expense).environmentObject(self.expensesHandler)) {
                         ExpensesRow(expense: expense)
                     }
                 }
@@ -44,7 +45,7 @@ struct ExpensesView: View {
                           dismissButton: .default(Text("Dismiss")))
                 }
                 .sheet(isPresented: self.$showAddExpense) {
-                    NewExpenseView(mode: .new).environmentObject(self.expensesHandler) }
+                    NewExpenseView().environmentObject(self.expensesHandler) }
             )
             
         }

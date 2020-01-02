@@ -8,11 +8,6 @@
 
 import SwiftUI
 
-enum Mode {
-    case new
-    case edit
-}
-
 struct NewExpenseView: View {
     @Environment(\.presentationMode) var presentationMode
     
@@ -22,7 +17,10 @@ struct NewExpenseView: View {
     @State private var amount: String = ""
     @State private var categorySelected = 0
     
-    var mode: Mode
+    // Edit mode variable
+    @State var expense: Expense?
+    var isEditMode = false
+    var expenseId = UUID()
     
     var body: some View {
         
@@ -74,7 +72,7 @@ struct NewExpenseView: View {
                 }
                 
             }
-            .navigationBarTitle(Text("New expense"), displayMode: .inline)
+            .navigationBarTitle(!self.isEditMode ? Text("New expense") : Text("Edit expense"), displayMode: .inline)
             .navigationBarItems(leading:
                 Button(action: {
                     // Action
@@ -87,26 +85,61 @@ struct NewExpenseView: View {
                 Button(action: {
                     // Action
                     
-                    if self.expensesHandler.expenses.count < 100 && self.mode == .new {
+                    // NEW
+                    if !self.isEditMode {
+                        if self.expensesHandler.expenses.count < 100 { // Just for security
+                            let titleTrim = self.title.trimmingCharacters(in: .whitespaces)
+                            
+                            let newExpense = Expense(title: titleTrim,
+                                                     amount: Int(self.amount)!,
+                                                     category: ExpenseCategory[self.categorySelected])
+                            self.expensesHandler.expenses.append(newExpense)
+                            
+                            self.presentationMode.wrappedValue.dismiss()
+                            
+                        }
+                    }
+                    // EDIT
+                    else {
+                        
+                        // modify expense from list
                         let titleTrim = self.title.trimmingCharacters(in: .whitespaces)
                         
-                        let newExpense = Expense(title: titleTrim,
-                                                 amount: Int(self.amount)!,
-                                                 category: ExpenseCategory[self.categorySelected])
-                        self.expensesHandler.expenses.append(newExpense)
+                        self.expense?.title = titleTrim
+                        self.expense?.amount = Int(self.amount)!
+                        self.expense?.category = ExpenseCategory[self.categorySelected]
+                        
+                        // Find a way to modify self.expensesHandler.expenses
                         
                         self.presentationMode.wrappedValue.dismiss()
                         
-                    } else if self.mode == .edit {
-                        print("edit mode")
+                        
                     }
                     
                 }) {
                     // Design
-                    Text("Add")
-                        .bold()
+                    
+                    // NEW
+                    if !self.isEditMode {
+                        Text("Add").bold()
+                    }
+                    // EDIT
+                    else {
+                        Text("Modify").bold()
+                    }
+                    
                 }.disabled(!formIsValid())
             )
+        }
+        .onAppear {
+            if self.isEditMode {
+                
+                self.expense = self.expensesHandler.expenses.filter { $0.id == self.expenseId }.first
+                
+                self.title = self.expense!.title
+                self.amount = String(self.expense!.amount)
+                self.categorySelected = ExpenseCategory.firstIndex(of: self.expense!.category)!
+            }
         }
         
     }
