@@ -15,12 +15,44 @@ struct ExpensesView: View {
     @State private var showAlertExpense = false
     
     var body: some View {
+        
         NavigationView {
             List {
-                ForEach(expensesHandler.expenses) { expense in
+                ForEach(self.expensesHandler.expenses) { expense in
                     NavigationLink(destination:
-                    ExpensesDetail(expense: expense).environmentObject(self.expensesHandler)) {
-                        ExpensesRow(expense: expense)
+                        
+                        ExpensesDetail(expense: expense).environmentObject(self.expensesHandler)
+                    
+                    ) {
+//                        Expense Row view is not refresh with expense edition
+//                        ExpensesRow(expense: expense)
+                        
+                        // This is from Expense Row but this way it works
+                        // ============================================
+                        HStack {
+                            // Main image
+                            Image(expense.category.lowercased())
+                                .resizable()
+                                .frame(width: 38, height: 38)
+                                .cornerRadius(8)
+                            
+                            // Main informations
+                            VStack(alignment: .leading) {
+                                Text(expense.title)
+                                Text(expense.category)
+                                    .font(.subheadline)
+                                    .foregroundColor(Color.gray)
+                            }
+                            
+                            Spacer()
+                            
+                            // Amount
+                            Text("$\(expense.amount)")
+                                .foregroundColor(.green)
+                            
+                        }.padding(5)
+                        // ============================================
+                        
                     }
                 }
                 .onDelete(perform: deleteExpense)
@@ -52,7 +84,7 @@ struct ExpensesView: View {
     }
     
     func deleteExpense(at offsets: IndexSet) {
-        expensesHandler.expenses.remove(atOffsets: offsets)
+        self.expensesHandler.remove(atOffsets: offsets)
     }
 }
 

@@ -60,6 +60,19 @@ class ExpensesHandler : ObservableObject {
         }
         
         self.expenses = []
+        
+    }
+    
+    func add(newExpense: Expense) {
+        self.expenses.append(newExpense)
+    }
+    
+    func replace(atIndex index: Int, expense: Expense) {
+        self.expenses[index] = expense
+    }
+    
+    func remove(atOffsets offset: IndexSet) {
+        self.expenses.remove(atOffsets: offset)
     }
     
     func totalExpenses() -> Int {

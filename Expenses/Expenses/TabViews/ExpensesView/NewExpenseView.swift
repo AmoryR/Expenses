@@ -93,7 +93,8 @@ struct NewExpenseView: View {
                             let newExpense = Expense(title: titleTrim,
                                                      amount: Int(self.amount)!,
                                                      category: ExpenseCategory[self.categorySelected])
-                            self.expensesHandler.expenses.append(newExpense)
+                            
+                            self.expensesHandler.add(newExpense: newExpense)
                             
                             self.presentationMode.wrappedValue.dismiss()
                             
@@ -111,8 +112,20 @@ struct NewExpenseView: View {
                         
                         // Find a way to modify self.expensesHandler.expenses
                         
-                        self.presentationMode.wrappedValue.dismiss()
+                        var index = 0
+                        for exp in self.expensesHandler.expenses {
+                            
+                            if exp.id == self.expense?.id {
+                                break;
+                            }
+                            
+                            index += 1;
+                        }
                         
+//                        self.expensesHandler.expenses[index] = self.expense!
+                        self.expensesHandler.replace(atIndex: index, expense: self.expense!)
+                        
+                        self.presentationMode.wrappedValue.dismiss()
                         
                     }
                     

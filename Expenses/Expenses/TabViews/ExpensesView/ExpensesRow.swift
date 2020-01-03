@@ -15,15 +15,15 @@ struct ExpensesRow: View {
             
         HStack {
             // Main image
-            Image(expense.category.lowercased())
+            Image(self.expense.category.lowercased())
                 .resizable()
                 .frame(width: 38, height: 38)
                 .cornerRadius(8)
             
             // Main informations
             VStack(alignment: .leading) {
-                Text(expense.title)
-                Text(expense.category)
+                Text(self.expense.title)
+                Text(self.expense.category)
                     .font(.subheadline)
                     .foregroundColor(Color.gray)
             }
@@ -31,7 +31,7 @@ struct ExpensesRow: View {
             Spacer()
             
             // Amount
-            Text("$\(expense.amount)")
+            Text("$\(self.expense.amount)")
                 .foregroundColor(.green)
             
         }.padding(5)
