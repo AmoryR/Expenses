@@ -43,12 +43,12 @@ class CategoryHandler {
 class Category : Identifiable {
     var id = UUID()
     var title: String
-    var amount: Int
+    var amount: Float
     var expenses: [Expense] = []
     
     init(expenses: [Expense]) {
         self.title = ""
-        self.amount = 0
+        self.amount = 0.0
         self.expenses = expenses
     }
 }

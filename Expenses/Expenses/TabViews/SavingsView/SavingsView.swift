@@ -89,11 +89,11 @@ struct SavingsView: View {
          
     }
     
-    private func computeSavings() -> Int {
+    private func computeSavings() -> Float {
         if self.profileHandler.profile.revenue.isEmpty {
             return 0
         }
-        return Int(self.profileHandler.profile.revenue)! - self.expensesHandler.totalExpenses()
+        return Float(self.profileHandler.profile.revenue)! - self.expensesHandler.totalExpenses()
     }
 }
 

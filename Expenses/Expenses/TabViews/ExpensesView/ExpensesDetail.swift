@@ -41,7 +41,7 @@ struct ExpensesDetail: View {
                         .font(.title)
                         .bold()
                         .foregroundColor(.white)
-                    Text("$\(expense.amount)")
+                    Text(String(format: "$%.2f", expense.amount))
                         .foregroundColor(.white)
                         .padding(.bottom)
                     

@@ -57,7 +57,7 @@ struct NewExpenseView: View {
                         }.frame(width: 70)
                         
                         TextField("Amount", text: $amount)
-                            .keyboardType(.numberPad)
+                            .keyboardType(.decimalPad)
                     }
                     
                 }
@@ -91,7 +91,7 @@ struct NewExpenseView: View {
                             let titleTrim = self.title.trimmingCharacters(in: .whitespaces)
                             
                             let newExpense = Expense(title: titleTrim,
-                                                     amount: Int(self.amount)!,
+                                                     amount: Float(self.amount)!,
                                                      category: ExpenseCategory[self.categorySelected])
                             
                             self.expensesHandler.add(newExpense: newExpense)
@@ -107,7 +107,7 @@ struct NewExpenseView: View {
                         let titleTrim = self.title.trimmingCharacters(in: .whitespaces)
                         
                         self.expense?.title = titleTrim
-                        self.expense?.amount = Int(self.amount)!
+                        self.expense?.amount = Float(self.amount)!
                         self.expense?.category = ExpenseCategory[self.categorySelected]
                         
                         // Find a way to modify self.expensesHandler.expenses

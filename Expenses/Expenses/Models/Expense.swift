@@ -28,10 +28,10 @@ let ExpenseCategory = [
 class Expense : Identifiable, Codable {
     var id = UUID()
     var title: String
-    var amount: Int
+    var amount: Float
     var category: String
     
-    init(title: String, amount: Int, category: String) {
+    init(title: String, amount: Float, category: String) {
         self.title = title
         self.amount = amount
         self.category = category
@@ -75,8 +75,8 @@ class ExpensesHandler : ObservableObject {
         self.expenses.remove(atOffsets: offset)
     }
     
-    func totalExpenses() -> Int {
-        var sum: Int = 0
+    func totalExpenses() -> Float {
+        var sum: Float = 0
         
         for expense in self.expenses {
             sum += expense.amount

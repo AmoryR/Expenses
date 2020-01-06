@@ -24,7 +24,7 @@ struct CategoryRow: View {
                 
                 VStack(alignment: .leading) {
                     Text(category.title)
-                    Text("$\(category.amount)")
+                    Text(String(format: "$%.2f", category.amount))
                         .foregroundColor(Color.green)
                 }
                 

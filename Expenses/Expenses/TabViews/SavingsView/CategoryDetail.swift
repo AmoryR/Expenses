@@ -36,7 +36,7 @@ struct CategoryDetail: View {
                     .font(.title)
                     .bold()
                     .foregroundColor(.white)
-                Text("$\(category.amount)")
+                Text(String(format: "$%.2f", category.amount))
                     .foregroundColor(.white)
                     .padding(.bottom)
                 

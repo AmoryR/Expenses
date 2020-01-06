@@ -13,7 +13,7 @@ struct Profile: Codable {
     var name: String
     var age: String // Should be Int but problem with text field
     var work: String
-    var revenue: String // Should be Int but problem with text field
+    var revenue: String // Should be Float but problem with text field
 }
 
 class ProfileHandler: ObservableObject {
@@ -27,7 +27,7 @@ class ProfileHandler: ObservableObject {
         }
     }
     
-    @Published var profile = Profile(name: "None", age: "0", work: "None", revenue: "0") {
+    @Published var profile = Profile(name: "noname", age: "0", work: "nowork", revenue: "0") {
         didSet {
             let encoder = JSONEncoder()
             
