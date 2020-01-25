@@ -43,9 +43,12 @@ struct SavingsView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         
                         HStack(spacing: 15) {
-                            ResumeView(title: "Savings", amount: "$\(self.computeSavings())")
-                            ResumeView(title: "Expenses", amount: "$\(self.expensesHandler.totalExpenses())")
-                            ResumeView(title: "Revenue", amount: "$\(self.profileHandler.profile.revenue)")
+                            ResumeView(title: "Savings",
+                                       amount: String(format: "$%.2f", self.computeSavings()))                  
+                            ResumeView(title: "Expenses",
+                                       amount: String(format: "$%.2f", self.expensesHandler.totalExpenses()))
+                            ResumeView(title: "Revenue",
+                                       amount: String(format: "$%.2f", self.profileHandler.profile.revenue))
                         }
                         .padding(.leading)
                         .padding(.trailing)
