@@ -6,7 +6,7 @@
 ---
 
 Everyone wants to track their expenses. This application is a simple way to do that.  
-For more information, visit my website [amoryrouault.com](https://amoryrouault.com/work/expenses)
+For more information, visit my website [amoryrouault.com](https://amoryrouault.com)
 
 ### Get started
 
